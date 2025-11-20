@@ -1,5 +1,7 @@
 package pl.shop.lab;
 
+import pl.shop.lab.view.frames.MainFrame;
+
 /**
  * Hello world!
  *
@@ -8,6 +10,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
     }
 }
