@@ -28,6 +28,7 @@ The system supports both **CLIENT** and **ADMIN** roles, including product brows
 
 The project uses a **fully modular and layered structure**:
 
+```
 src/main/java/pl/shop/lab
 │
 ├── app                     # ApplicationContext (services + repositories)
@@ -39,6 +40,7 @@ src/main/java/pl/shop/lab
 └── view
     ├── frames              # MainFrame (application window)
     └── panels              # Swing panels (LoginPanel, RegisterPanel, etc.)
+```
 
 ---
 
@@ -46,12 +48,14 @@ src/main/java/pl/shop/lab
 
 All persistent data is stored in **CSV files** inside the `data/` directory:
 
+```
 data/
 ├── ids.csv               # Auto-incrementing ID sequences
 ├── products.csv          # Product catalog
 ├── users.csv             # User accounts
 ├── payment_requests.csv  # Pending/approved/rejected top-ups
 └── orders.csv            # Saved orders (with item lists)
+```
 
 Each repository:
 - loads CSV on startup,
