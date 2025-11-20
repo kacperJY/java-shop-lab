@@ -37,7 +37,7 @@ public class AdminHomePanel extends JPanel {
         // ================= CONTENT AREA =================
         // Na razie placeholdery
         contentPanel.add(new JLabel("Lista produktów (admin)", SwingConstants.CENTER), "products");
-        contentPanel.add(new JLabel("Dodawanie produktu", SwingConstants.CENTER), "addProduct");
+        contentPanel.add(new AddProductPanel(), "addProduct");
         contentPanel.add(new JLabel("Zamówienia klientów", SwingConstants.CENTER), "orders");
         contentPanel.add(new JLabel("Oczekujące płatności", SwingConstants.CENTER), "payments");
         contentPanel.add(new JLabel("Użytkownicy", SwingConstants.CENTER), "users");
@@ -46,7 +46,7 @@ public class AdminHomePanel extends JPanel {
 
         // ================= BUTTON ACTIONS =================
         productsBtn.addActionListener(e -> contentLayout.show(contentPanel, "products"));
-        addProductBtn.addActionListener(e -> contentLayout.show(contentPanel, "addProduct"));
+        addProductBtn.addActionListener(e ->  contentLayout.show(contentPanel, "addProduct"));
         ordersBtn.addActionListener(e -> contentLayout.show(contentPanel, "orders"));
         paymentsBtn.addActionListener(e -> contentLayout.show(contentPanel, "payments"));
         usersBtn.addActionListener(e -> contentLayout.show(contentPanel, "users"));
