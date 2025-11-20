@@ -137,7 +137,6 @@ Run → App.java
 
 ## 📸 Screenshots (To Be Added)
 
-Place GUI screenshots here once panels are implemented.
 
 ---
 
