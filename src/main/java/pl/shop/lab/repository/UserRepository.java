@@ -8,6 +8,7 @@ import pl.shop.lab.model.User;
 import pl.shop.lab.model.UserRole;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,12 +33,27 @@ public class UserRepository implements Repository<User> {
         List<String[]> rows = CsvUtils.read(FILE_PATH);
 
         for (String[] r : rows) {
+
+            // REQUIRE [0] id     [1] login       [2] password
+            // DEFAULT [3] balance      [4] UserRole
+            // OPTIONAL [5] - Fullname      [6] city        [7] street      [8] postal code     [9] phone
+
+            // r.length == 5  ====> User has only basics data (id,login,password,balance,role)
+            // without optional data address
+            // MINIMUM LENGTH of line is length=5  ===> User has to have REQUIRE data (id,login,password,balance,role)
+
+            if(r.length < 5){
+                System.out.println("Invalid User CSV Format -- OBJECT SIPPED");
+                continue;
+            }
+
             // format: id;login;password;balance;role;fullName;city;street;postalCode;phone
             String id = r[0];
             String login = r[1];
             String password = r[2];
             double balance = Double.parseDouble(r[3]);
             UserRole role = UserRole.valueOf(r[4]);
+
 
             Address address = new Address(
                     r[5], // fullName
@@ -49,7 +65,6 @@ public class UserRepository implements Repository<User> {
 
             User user = new User(id, login, password, balance, role, address);
             result.add(user);
-
         }
 
         return result;
@@ -59,7 +74,27 @@ public class UserRepository implements Repository<User> {
     public void saveAll(List<User> items) {
         List<String[]> rows = new ArrayList<>();
         for (User u : items) {
-            rows.add(u.toCsv().split(";"));
+            String[] line = u.toCsv().split(";");
+
+            // REQUIRE [0] id     [1] login       [2] password
+            // DEFAULT [3] balance      [4] UserRole
+            // OPTIONAL [5] - Fullname      [6] city        [7] street      [8] postal code     [9] phone
+
+            // line.length == 5  ====> User has only basics data (id,login,password,balance,role)
+            // without optional data address
+
+            if(line.length == 5){
+                String[] newLine = Arrays.copyOf(line, 10);
+                newLine[5] = ";";
+                newLine[6] = ";";
+                newLine[7] = ";";
+                newLine[8] = ";";
+                newLine[9] = ";";
+                rows.add(newLine);
+                continue;
+            }
+
+            rows.add(line);
         }
         CsvUtils.write(FILE_PATH, rows);
     }

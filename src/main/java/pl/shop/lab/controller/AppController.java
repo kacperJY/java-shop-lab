@@ -3,13 +3,10 @@ package pl.shop.lab.controller;
 
 import pl.shop.lab.app.ApplicationContext;
 import pl.shop.lab.io.IdGenerator;
-import pl.shop.lab.model.Address;
 import pl.shop.lab.model.User;
-import pl.shop.lab.model.UserRole;
-import pl.shop.lab.service.PaymentService;
-import pl.shop.lab.service.ProductService;
 import pl.shop.lab.service.UserService;
 import pl.shop.lab.view.frames.MainFrame;
+import pl.shop.lab.view.panels.*;
 
 import javax.swing.*;
 import java.util.Optional;
@@ -37,6 +34,7 @@ public class AppController {
         frame.showPanel("register");
     }
 
+
     public void login(String login, String password) {
         Optional<User> result = userService.login(login, password);
 
@@ -60,12 +58,15 @@ public class AppController {
     }
 
     private void openClientPanel() {
-        // TODO: dodamy ClientHomePanel
+        // Register card and load card view
+        frame.getCards().add(new ClientHomePanel(this), "client");
+        frame.showPanel("client");
         JOptionPane.showMessageDialog(frame, "Zalogowano jako klient");
     }
 
     private void openAdminPanel() {
-        // TODO: dodamy AdminPanel
+        frame.getCards().add(new AdminHomePanel(this), "admin");
+        frame.showPanel("admin");
         JOptionPane.showMessageDialog(frame, "Zalogowano jako admin");
     }
 
